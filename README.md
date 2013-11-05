@@ -6,15 +6,12 @@ Did you know that that the Arduino’s built in serial.print() of a constant char 
 
 <pre>Serial.Print(“Hello”);</pre>
 
-actually allocates the “Hello” into a unique space of RAM. Hence every
-such occurrence of serial print of a constant string uses more and more
-ram. Until you are out. And there is only 2\. of RAM on the ATmega328.
-This is likely why you don’t see many examples with a lot of debug
-prints.
-That said there is hope. I have both been suggested and found several
-work-a-rounds all similar in forcing the char array to be read directly
-from memory at print time.&nbsp; This can be done using some not as obvious
-AVR Libc commands provided with avr/pgmspace.h. Where this library provides a simplified library to do such.
+actually allocates the “Hello” into a unique space of RAM, not just Flash. Hence every such occurrence of serial print of a constant string uses more and more RAM. Until you are out. And there is only 2K of RAM on the ATmega328. This is likely why you don’t see many examples with a lot of debug prints.
+That said there is hope, use the "F()" funciton. Now natively supported in the IDE > 1.0.0. Same concept applies.
+
+Previously, I have both been suggested and found several work-a-rounds all similar in forcing the char array to be read directly from memory at print time. This can be done using some not as obvious AVR Libc commands provided with avr/pgmspace.h. Where teh pgmStrToRAM library provides a simplified library to do such.
+
+Additionally the companion library MemoryFree is very useful in determining how much RAM is being used or left. Don't wonder or guess. I find it good practice to always dump it during setup to see the global static usage. Just in case.
 
 ## Installation
 
@@ -41,17 +38,18 @@ include the desired library(s) at the beginning of sketch
 
 then at the desired location
 
-<pre>Serial.print(getPSTR("Free RAM = ")); // forced to be compiled into and read from Flash
-Serial.println(freeMemory(), DEC);  // print how much RAM is available.</pre>
+<pre>  Serial.println(getPSTR("Old way to force String to Flash"));
+  Serial.println(F("New way to force String to Flash"));
+  Serial.println(F("Free RAM = "));</pre>
 
-Please note that the memory is dynamic and always changing. Where Static Globabl Variables and Members&nbsp; create a base minimum of usage that can typically be read at setup(). When functions and routines dive deeper into the stack more memory will be dynamically consumed and released. So there needs to be a margin from completely running out. 
+Please note that the memory is dynamic and always changing. Where Static Global Variables and Members&nbsp; create a base minimum of usage that can typically be read at setup(). When functions and routines dive deeper into the stack more memory will be dynamically consumed and released. So there needs to be a margin from completely running out. 
 
 ## Back Ground
 
 Based on my tests I see that Serial.Print of actual variables e.g.
 Serial.Print( (int8_t) value, DEC);
 Does not increase RAM usage for each occurrence.
-Hence it would appear that overloaded object member of an char array (e.i. const string) creates a unique location in static RAM and definitely does not share it. As one might think or expect. 
+However it would appear that overloaded object member of an char array (e.i. const string) creates a unique location in static RAM and definitely does not share it. As one might think or expect. 
 
 A more indepth look at avr-libc and its features can be found at http://www.nongnu.org/avr-libc/user-manual/pgmspace.html 
 
@@ -68,4 +66,4 @@ Serial.println(FreeRam());</pre>
 
 ## Gratitude
 
-Special Thanks to GreyGnome and others for providing the example this is based off.
+Special Thanks to GreyGnome, William Greiman and others for providing the example this is based off.
