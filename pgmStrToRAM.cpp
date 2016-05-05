@@ -1,5 +1,6 @@
 #include <avr/pgmspace.h>
 #include <stdlib.h>
+#include <string.h>
 
 char *to_print;
 char *pgmStrToRAM(PROGMEM char *theString) {
