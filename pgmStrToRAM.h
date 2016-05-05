@@ -2,4 +2,4 @@
 
 #define getPSTR(s) pgmStrToRAM(PSTR(s))
 
-char *pgmStrToRAM(PROGMEM char *theString);
+char *pgmStrToRAM(PROGMEM const char *theString);
