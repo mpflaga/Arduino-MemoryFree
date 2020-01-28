@@ -2,11 +2,11 @@
 
 This Library was written for the Arduino to both measure available RAM and use less RAM
 
-Did you know that that the Arduinoís built in serial.print() of a constant char array
+Did you know that that the Arduino‚Äôs built in serial.print() of a constant char array
 
-<pre>Serial.Print(ìHelloî);</pre>
+<pre>Serial.Print(‚ÄúHello‚Äù);</pre>
 
-actually allocates the ìHelloî into a unique space of RAM, not just Flash. Hence every such occurrence of serial print of a constant string uses more and more RAM. Until you are out. And there is only 2K of RAM on the ATmega328. This is likely why you donít see many examples with a lot of debug prints.
+actually allocates the ‚ÄúHello‚Äù into a unique space of RAM, not just Flash. Hence every such occurrence of serial print of a constant string uses more and more RAM. Until you are out. And there is only 2K of RAM on the ATmega328. This is likely why you don‚Äôt see many examples with a lot of debug prints.
 That said there is hope, use the "F()" funciton. Now natively supported in the IDE > 1.0.0. Same concept applies.
 
 Previously, I have both been suggested and found several work-a-rounds all similar in forcing the char array to be read directly from memory at print time. This can be done using some not as obvious AVR Libc commands provided with avr/pgmspace.h. Where teh pgmStrToRAM library provides a simplified library to do such.
@@ -41,6 +41,7 @@ then at the desired location
 <pre>  Serial.println(getPSTR("Old way to force String to Flash"));
   Serial.println(F("New way to force String to Flash"));
   Serial.println(F("Free RAM = "));</pre>
+  Serial.println(freeMemory(), DEC);  // print how much RAM is available.
 
 Please note that the memory is dynamic and always changing. Where Static Global Variables and Members&nbsp; create a base minimum of usage that can typically be read at setup(). When functions and routines dive deeper into the stack more memory will be dynamically consumed and released. So there needs to be a margin from completely running out. 
 
