@@ -2,7 +2,7 @@
 
 This Library was written for the Arduino to both measure available RAM and use less RAM
 
-Did you know that that the Arduino’s built in serial.print() of a constant char array
+Did you know that the Arduino’s built in serial.print() of a constant char array
 
 <pre>Serial.Print(“Hello”);</pre>
 
