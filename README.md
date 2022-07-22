@@ -2,12 +2,12 @@
 
 This Library was written for the Arduino to both measure available RAM and use less RAM
 
-Did you know that the Arduinoís built in serial.print() of a constant char array
+Did you know that the Arduino‚Äôs built in serial.print() of a constant char array
 
-<pre>Serial.Print(ìHelloî);</pre>
+<pre>Serial.Print(‚ÄúHello‚Äù);</pre>
 
-actually allocates the ìHelloî into a unique space of RAM, not just Flash. Hence every such occurrence of serial print of a constant string uses more and more RAM. Until you are out. And there is only 2K of RAM on the ATmega328. This is likely why you donít see many examples with a lot of debug prints.
-That said there is hope, use the "F()" funciton. Now natively supported in the IDE > 1.0.0. Same concept applies.
+actually allocates the ‚ÄúHello‚Äù into a unique space of RAM, not just Flash. Hence every such occurrence of serial print of a constant string uses more and more RAM. Until you are out. And there is only 2K of RAM on the ATmega328. This is likely why you don‚Äôt see many examples with a lot of debug prints.
+That said there is hope, use the "F()" function. Now natively supported in the IDE > 1.0.0. Same concept applies.
 
 Previously, I have both been suggested and found several work-a-rounds all similar in forcing the char array to be read directly from memory at print time. This can be done using some not as obvious AVR Libc commands provided with avr/pgmspace.h. Where the pgmStrToRAM library provides a simplified library to do such.
 
