@@ -7,7 +7,7 @@ void setup() {
   Serial.println(getPSTR("Old way to force String to Flash")); // forced to be compiled into and read 	
   Serial.println(F("New way to force String to Flash")); // forced to be compiled into and read 	
   Serial.println(F("Free RAM = ")); //F function does the same and is now a built in library, in IDE > 1.0.0
-  Serial.println(freeMemory(), DEC);  // print how much RAM is available.
+  Serial.println(freeMemory());  // print how much RAM is available in bytes.
   // print how much RAM is available.
 }
 
