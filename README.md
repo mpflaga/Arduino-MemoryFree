@@ -8,7 +8,7 @@ Did you know that the Arduino's built in serial.print() of a constant char array
 Serial.Print("Hello");
 ```
 
-actually allocates the "Hello" into a unique space of RAM, not just Flash. Hence every such occurrence of serial print of a constant string uses more and more RAM. Until you are out. And there is only 2K of RAM on the ATmega328. This is likely why you don't see many examples with a lot of debug prints.
+Actually allocates the "Hello" into a unique space of RAM, not just Flash. Hence every such occurrence of serial print of a constant string uses more and more RAM. Until you are out. And there is only 2K of RAM on the ATmega328. This is likely why you don't see many examples with a lot of debug prints.
 
 That said there is hope, use the "F()" function. Now natively supported in the IDE > 1.0.0. Same concept applies.
 
